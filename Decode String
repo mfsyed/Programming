@@ -1,0 +1,30 @@
+def decodeString(self, s)
+
+    ptr = 0
+    stack = [""]
+    num_stack = []
+    digits = {"0","1","2","3","4","5","6","7","8","9"}
+
+    while ptr < len(s):
+        if s[ptr] in digits:       
+            digit = ""
+            # Convert the string to int as it can double digits
+            while s[ptr] in digits:
+                digit += s[ptr]
+                ptr += 1
+
+            digit_int = int(digit)
+            stack.append("")
+            num_stack.append(digit_int)                
+        elif s[ptr] == ']':                    
+            frequency = num_stack.pop()
+            #pop last bit of string and bound it to sub, then add sub to the part of string that came before sub
+            sub = stack.pop()   
+            stack[-1] += frequency * sub
+        else:
+            stack[-1] += s[ptr]
+        ptr += 1       
+
+
+
+    return stack[0]
