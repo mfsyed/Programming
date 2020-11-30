@@ -1,0 +1,39 @@
+def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+       
+    '''
+    Given a paragraph and a list of banned words, return the most frequent word that is not in the list of           banned words.
+    It is guaranteed there is at least one word that isn't banned, and that the answer is unique.
+
+    Words in the list of banned words are given in lowercase, and free of punctuation.  Words in the                 paragraph are not case sensitive.  The answer is in lowercase.
+    '''
+
+    punctuation = {"!","?",",",";",".","'"} 
+    string = ""
+
+    for letter in paragraph:
+        if letter not in punctuation:
+            string += letter.lower()
+        elif letter in punctuation:
+            string += " "
+
+
+    p = string.split()
+    print(string)
+    print(p)
+    fd = dict()
+    banned_set = set(banned)
+    record = ""
+    frequency = 0
+
+    for word in p:
+        if word not in banned_set:
+            try:
+                fd[word] += 1
+            except:
+                fd[word] = 1
+
+            if fd[word] > frequency:
+                record = word
+                frequency = fd[word]
+
+    return record
