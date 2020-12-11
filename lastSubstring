@@ -1,0 +1,10 @@
+  def lastSubstring(s):
+
+      #finding alphabetically last letter in this string
+      starting_letter=max(list(s))
+
+      #finding the max length of a contiguous substring that only contains starting_letter
+      frequent = max([match.end()-match.start() for match in re.finditer(starting_letter+"+",s)])
+
+      #finding alphabetically last subtring by matching with the substring that has the alphabetically last letter*frequent
+      return max([s[sub.start():] for sub in re.finditer(starting_letter*frequent,s)])
