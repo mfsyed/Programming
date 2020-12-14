@@ -1,0 +1,22 @@
+  def minMeetingRooms(intervals):
+      if not intervals:
+          return 0
+      intervals = sorted(intervals,key = lambda x: x[0])
+
+      schedule = []
+
+      for interval in intervals:
+          if len(schedule) == 0:
+              heapq.heappush(schedule, interval)
+          elif interval[1] <= schedule[0][1] or interval[0] < schedule[0][1]:
+               heapq.heappush(schedule, interval)
+               schedule.sort(key = lambda x: x[1])
+          else:
+              heapq.heappop(schedule)
+              heapq.heappush(schedule,interval)
+              schedule.sort(key = lambda x: x[1])
+
+          print(schedule)
+
+
+      return len(schedule)
