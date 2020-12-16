@@ -1,0 +1,32 @@
+def kClosest(points, K):
+    distances = []
+
+    for p in points:
+        distances.append((p,p[0]**2+p[1]**2))
+
+    distances.sort(key = lambda x: x[1])
+
+    print(distances)
+
+    res = [distances[i][0] for i in range(K)]
+
+
+    return res
+
+def kClosest_minheap(points, K):
+    distances = []
+    dist_dict = dict()
+    for p in points:
+        dist = p[0]**2+p[1]**2
+        distances.append(dist)
+        dist_dict[(p[0],p[1])] = dist
+
+    heapq.heapify(distances)
+    distances = set(heapq.nsmallest(K,distances))
+
+    res = []
+    for key in dist_dict:
+        if dist_dict[key] in distances:
+            res.append(list(key))
+
+    return res
