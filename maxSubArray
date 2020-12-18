@@ -1,0 +1,9 @@
+def maxSubArray(nums):
+
+    subs = [0 for i in range(len(nums))]
+    subs[0] = nums[0]
+    for i in range(1,len(nums)):
+        #doing this step allows to maintain the the sum of the subsequences because first argument impplicitly sums
+        subs[i] = max(subs[i-1]+nums[i], nums[i])
+
+    return max(subs)
