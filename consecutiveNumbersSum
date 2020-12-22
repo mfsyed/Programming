@@ -1,0 +1,24 @@
+import math
+
+def consecutiveNumbersSum(N):
+    '''
+    integer factorization
+    N = (x+1)(x+2)...(x+k)
+    we get N = kx+(1+....+k) = kx + k(k+1)/2
+    solve for x: (N-k(k+1)/2)/k
+
+    count all k's that are ints and give x's that are ints
+    '''
+
+
+
+    #to return
+    count = 1
+    
+    #limit
+    quotient = int(math.sqrt(2*N))+1
+    for i in range(2,quotient):
+        if (N - i*(i+1)/2) % i == 0:
+            count += 1      
+
+    return count
