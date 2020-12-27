@@ -1,0 +1,41 @@
+def expand(S):
+    ans = set()
+    def dfs(string,arr,i,known):
+        print(i)
+        if i == len(arr)-1:
+            if isinstance(arr[i],list):
+                for letter in arr[i]:
+                    new = string + letter
+                    known.add(new)
+            else:
+                new= string + arr[i]
+                known.add(new)
+
+        elif isinstance(arr[i],list):
+            for letter in arr[i]:
+                new = string + letter
+                dfs(new,arr,i+1,known)
+        else:
+            new = string + arr[i] 
+            dfs(new,arr,i+1,known)
+
+    ordering = []
+    i = 0
+    while i<len(S):
+        if S[i] == "{":
+            new = []
+            i += 1
+            while S[i] != "}":
+                if S[i].isalpha():
+                    new.append(S[i])
+                i += 1
+            ordering.append(new)
+            i += 1
+        else:
+            ordering.append(S[i])
+            i += 1
+
+
+    dfs("",ordering,0,ans)
+
+    ans = sorted(list(ans))
