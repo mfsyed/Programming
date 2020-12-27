@@ -1,0 +1,27 @@
+def removeDuplicates(S):
+    def alter(S):
+        ans = ""
+        sub = ""
+
+        for i in range(len(S)):
+            if S[i] in sub:
+                sub += S[i]
+            else:
+                if len(sub)%2 == 1:
+                    ans += sub[0]
+                sub = S[i]
+
+        if len(sub)%2 ==1:
+            ans += sub[0]
+
+        return ans
+
+
+    prev = alter(S)
+    curr = alter(prev)
+
+    while curr != prev:
+        prev = curr
+        curr = alter(prev)
+
+    return curr
