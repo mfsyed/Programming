@@ -1,0 +1,22 @@
+    def generate(self, numRows: int) -> List[List[int]]:
+        memo = [[1],[1,1]]
+        
+        if numRows == 0:
+            return []
+        if numRows == 1:
+            return [memo[0]]
+        if numRows == 2:
+            return memo
+        
+        i = 1
+        
+        while i < numRows-1:
+            new = [1]
+            for j in range(len(memo[i])-1):
+                new.append(memo[i][j]+memo[i][j+1])
+            new.append(1)
+            memo.append(new)
+            i +=1 
+            
+        
+        return memo
