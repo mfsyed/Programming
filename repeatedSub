@@ -1,0 +1,22 @@
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+        
+        def checkDivisibility(t):
+            slist = s.split(t)
+            
+            m = max(slist,key = lambda x: len(x))
+            if len(m) > 0:
+                return False
+            return True
+        
+        
+        sub = s[0]
+        i = 1
+        while not checkDivisibility(sub):
+            sub += s[i]
+            i += 1
+            
+        
+        if len(sub) < len(s):
+            return True
+        return False
