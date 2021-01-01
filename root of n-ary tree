@@ -1,0 +1,25 @@
+class Solution:
+    def findRoot(self, tree: List['Node']) -> 'Node':
+        graph = dict()
+        parent = dict()
+        for n in tree:
+            graph[n.val] = []
+            if n.val not in parent:
+                parent[n.val] = None
+            for c in n.children:
+                graph[n.val].append(c.val)
+                parent[c.val] = n.val
+                
+        
+        goal = None
+        for entry in parent:
+            if not parent[entry] and parent[entry] != 0:
+                goal = entry
+                break
+        
+        print(goal)
+        print(parent)
+        
+        for t in tree:
+            if t.val == goal:
+                return t
