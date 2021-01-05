@@ -1,0 +1,52 @@
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        fresh = set()
+        rotten = []
+        graph = dict()
+        seen = set()
+        col = len(grid)
+        row = len(grid[0])
+        
+        for i in range(col):
+            for j in range(row):
+                if grid[i][j] >= 1:
+                    if grid[i][j] == 1:
+                        fresh.add((i,j))
+                    if grid[i][j] == 2:
+                        rotten.append((i,j))
+                    graph[(i,j)] = []
+                    if i > 0:
+                        if grid[i-1][j] == 1:
+                            graph[(i,j)].append((i-1,j))
+                    if j > 0:
+                        if grid[i][j-1] == 1:
+                            graph[(i,j)].append((i,j-1))     
+                    if i < col-1:
+                        if grid[i+1][j] == 1:
+                            graph[(i,j)].append((i+1,j))
+                    if j < row-1:
+                        if grid[i][j+1] == 1:
+                            graph[(i,j)].append((i,j+1))
+        
+        def DFS(rotten,graph,fresh,seen,count):
+            new_rotten = []
+            for n in rotten:
+                seen.add(n)
+            while len(rotten) > 0:
+                node = rotten.pop()
+                for adj in graph[node]:
+                    if adj not in seen and adj in fresh:
+                        new_rotten.append(adj)
+            print(new_rotten)
+            if len(new_rotten) > 0:
+                return DFS(new_rotten,graph,fresh,seen,count+1)
+            else:
+                return count
+        
+        print(graph)
+        if len(fresh) == 0:
+            return 0
+        ans = DFS(rotten,graph,fresh,seen,0)
+        if len(seen) < len(graph.keys()):
+            return -1
+        return ans
