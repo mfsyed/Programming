@@ -1,0 +1,26 @@
+class Solution:     
+    def threeSum(self, nums: List[int]) -> List[List[int]]: 
+        #two sum
+        def two_sum(n,forbidden_index,s,number):
+            difference = set()
+            ans = set()
+            for i in range(len(n)):
+                if i != forbidden_index:
+                    diff = s-n[i]
+                    if diff in difference:
+                        triplet = tuple(sorted([n[i],diff,number]))
+                        ans.add(triplet)
+                    difference.add(n[i])
+            return ans
+        
+        if len(nums) < 3:
+            return []
+        else:
+            answer = set()
+            for i in range(len(nums)):
+                s = 0-nums[i]
+                triplets = two_sum(nums,i,s,nums[i])
+                for t in triplets:
+                    answer.add(t)
+            
+            return answer
