@@ -1,0 +1,43 @@
+class Solution:
+    def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -> bool:
+        horizontal = False
+        vertical = False
+        
+        
+    #check valid rectangle
+        if rec1[0]-rec1[2] == 0 or rec2[0]-rec2[2] == 0 or rec1[1]-rec1[3] == 0 or rec2[1]-rec2[3] == 0:
+            return False
+    #check if rec1 bottom edge between rec2 horizontal edges
+        if rec2[1] < rec1[1] and rec1[1] < rec2[3]:
+            horizontal = True
+    #check if rec1 top edge between rec2 horizontal edges
+        if rec2[1] < rec1[3] and rec1[3] < rec2[3]:
+            print("hi")
+            horizontal = True
+    #rec1 left edge between rec2 vertical
+        if rec2[0] < rec1[0] and rec1[0] <rec2[2]:
+            vertical = True
+    #rec1 right edge between rec2 vertical
+        if rec2[0] < rec1[2] and rec1[2] <rec2[2]:
+            vertical = True
+             
+                
+                
+        if rec1[1] < rec2[1] and rec2[1] < rec1[3]:
+            horizontal = True
+            
+        if rec1[1] < rec2[3] and rec2[3] < rec1[3]:
+            print("hi")
+            horizontal = True
+
+        if rec1[0] < rec2[0] and rec2[0] <rec1[2]:
+            vertical = True
+
+        if rec1[0] < rec2[2] and rec2[2] <rec1[2]:
+            vertical = True
+                
+                
+                
+        if horizontal and vertical:
+            return True
+        return False
