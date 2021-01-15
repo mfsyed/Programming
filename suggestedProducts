@@ -1,0 +1,16 @@
+class Solution:
+    def suggestedProducts(self, products: List[str], searchWord: str) -> List[List[str]]:
+        #sort products
+        #loop through searchword
+        #add next letter in the word to prefix
+        #create list of possible product by looping through products and seeing if it starts with prefix
+        #append a list of the first 3 possible items to answer
+        #return answer after loop
+        products = sorted(products)
+        answer = []
+        for i in range(len(searchWord)):
+            word = searchWord[:i+1]
+            possible = [w for w in products if w.startswith(word)]
+            answer.append(possible[:3])
+        
+        return answer
