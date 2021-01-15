@@ -1,0 +1,26 @@
+class Solution:
+    def partitionLabels(self, S: str) -> List[int]:
+        
+        interval_dict=dict()
+        for i in range(len(S)):
+            try:
+                interval_dict[S[i]][1] = i
+            except:
+                interval_dict[S[i]] = [i,i]
+        
+        intervals = sorted(list(interval_dict.values()))
+        
+        partitions = []
+        for interval in intervals:
+            if len(partitions) == 0:
+                partitions.append(interval)
+            elif interval[0] < partitions[-1][1]:
+                partitions[-1][1] = max(partitions[-1][1],interval[1])
+            else:
+                partitions.append(interval)
+            
+
+        for i in range(len(partitions)):
+            partitions[i] = partitions[i][1] - partitions[i][0] +1
+
+        return partitions
