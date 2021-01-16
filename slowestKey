@@ -1,0 +1,17 @@
+class Solution:
+    def slowestKey(self, releaseTimes: List[int], keysPressed: str) -> str:
+        
+        for i in reversed(range(1,len(releaseTimes))):
+            releaseTimes[i] = releaseTimes[i]-releaseTimes[i-1]
+
+        highest = max(releaseTimes)
+        res = None
+        
+        for i in range(len(keysPressed)):
+            if releaseTimes[i] == highest:
+                if res:
+                    res = max(keysPressed[i],res)
+                else:
+                    res = keysPressed[i]
+        
+        return res
