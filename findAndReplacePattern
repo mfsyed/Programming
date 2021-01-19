@@ -5,12 +5,13 @@ class Solution:
             ptw= dict()
             wtp = dict()
             for i in range(len(pattern)):
-                if pattern[i] in ptw and ptw[pattern[i]] != word[i]:
-                    return False
-                elif pattern[i] not in ptw and word[i] not in wtp:
-                    ptw[pattern[i]] = word[i]
-                    wtp[word[i]] = pattern[i]
-                elif (pattern[i] not in ptw and word[i] in wtp):
+                if pattern[i] not in ptw:
+                    if word[i] not in wtp:
+                        ptw[pattern[i]] = word[i]
+                        wtp[word[i]] = pattern[i]
+                    else:
+                        return False
+                elif ptw[pattern[i]] != word[i]:
                     return False
             return True
         
