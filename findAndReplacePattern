@@ -1,0 +1,23 @@
+class Solution:
+    def findAndReplacePattern(self, words: List[str], pattern: str) -> List[str]:
+        
+        def mapping(word):
+            ptw= dict()
+            wtp = dict()
+            for i in range(len(pattern)):
+                if pattern[i] in ptw and ptw[pattern[i]] != word[i]:
+                    return False
+                elif pattern[i] not in ptw and word[i] not in wtp:
+                    ptw[pattern[i]] = word[i]
+                    wtp[word[i]] = pattern[i]
+                elif (pattern[i] not in ptw and word[i] in wtp):
+                    return False
+            return True
+        
+        res = []
+        
+        for w in words:
+            if mapping(w):
+                res.append(w)
+        
+        return res
