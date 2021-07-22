@@ -1,0 +1,20 @@
+def connect_level(self, level: 'List') -> 'None':
+    if level:
+        new = []
+        length = len(level)
+
+        for i in range(length):
+            if i < length - 1:
+                level[i].next = level[i+1]
+
+            if level[i].left:
+                new.append(level[i].left)
+                new.append(level[i].right)
+
+        self.connect_level(new)
+
+def connect(self, root: 'Node') -> 'Node':
+
+    if root and root.left:
+        self.connect_level([root.left, root.right])
+    return root
