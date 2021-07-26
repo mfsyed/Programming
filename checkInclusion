@@ -1,0 +1,51 @@
+
+def create_fd(self, string):
+    fd = dict()
+
+    for letter in string:
+        if letter not in fd:
+            fd[letter] = 0
+
+        fd[letter] += 1
+
+    return fd
+
+
+
+def compare_fds(self, fd1, fd2):
+    if len(fd1) != len(fd2): return False
+
+    for letter in fd1:
+        if letter not in fd2 or fd1[letter] != fd2[letter]: return False
+
+    return True
+
+
+
+def checkInclusion(self, s1: str, s2: str) -> bool:
+
+    if len(s1) > len(s2): return False
+
+    fd1 = self.create_fd(s1)
+    fd2 = self.create_fd(s2[:len(s1)])
+    ptr = len(s1)
+
+    if self.compare_fds(fd1, fd2): return True
+
+    while ptr < len(s2):
+        take_out = s2[ptr-len(s1)]
+
+        fd2[take_out] -= 1
+        if fd2[take_out] == 0: del fd2[take_out]
+
+        if s2[ptr] not in fd2:
+            fd2[s2[ptr]] = 0
+
+        fd2[s2[ptr]] += 1
+
+        if self.compare_fds(fd1, fd2): return True
+
+        ptr += 1
+
+
+    return False
