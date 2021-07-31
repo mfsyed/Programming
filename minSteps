@@ -1,0 +1,22 @@
+def fd(self, string):
+
+    fd = dict()
+    for character in string:
+        if character not in fd:
+            fd[character] = 0
+        fd[character] += 1
+
+    return fd
+
+def minSteps(self, s: str, t: str) -> int:
+    fds, fdt = self.fd(s), self.fd(t)
+    changes = 0
+
+    for key in fds:
+        if key not in fdt:
+            changes += fds[key]
+        elif fdt[key] < fds[key]:
+            changes += fds[key] - fdt[key]
+
+
+    return changes
