@@ -1,0 +1,20 @@
+def fd(self, string):
+    fd = dict()
+    for character in string:
+        if character not in fd:
+            fd[character] =0
+
+        fd[character] += 1
+
+    return fd
+
+
+
+def closeStrings(self, word1: str, word2: str) -> bool:
+    fd1, fd2 = self.fd(word1), self.fd(word2)
+    freq1 = sorted([fd1[key] for key in fd1])
+    freq2 = sorted([fd2[key] for key in fd2])
+    freq1chars = sorted(list(fd1.keys()))
+    freq2chars = sorted(list(fd2.keys()))
+
+    return freq1 == freq2 and freq1chars == freq2chars
