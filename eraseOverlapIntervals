@@ -1,0 +1,21 @@
+def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+
+    if len(intervals) <= 1: return 0
+    ans = 0
+    dp = [0] * len(intervals)
+    dp[0] = 1
+    sorted_intervals = sorted(intervals, key = lambda x: x[0])
+
+    for i in range(1, len(intervals)):
+        maximum = 0
+
+        for j in reversed(range(i)):   
+            if sorted_intervals[i][0] >= sorted_intervals[j][1]:
+                maximum = max(maximum, dp[j])
+
+        dp[i] = maximum + 1
+        ans = max(ans, dp[i])
+
+
+
+    return len(intervals) - ans
