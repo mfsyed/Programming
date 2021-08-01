@@ -1,0 +1,59 @@
+def copy_linked_list(self, node, cur, carry):
+
+    while node:
+        new = ListNode()
+        val = node.val + carry
+
+
+        carry = val//10
+        new.val = val%10
+
+        cur.next = new
+        cur = cur.next
+
+        node = node.next
+
+    if carry:
+        new = ListNode(val = carry)
+        cur.next= new
+
+def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+    ans = ListNode()
+    cur = ans
+    l1cur = l1
+    l2cur = l2
+
+    val = l1cur.val + l2cur.val
+    carry = val//10
+    cur.val = val%10
+
+    l1cur = l1cur.next
+    l2cur = l2cur.next
+
+    while l1cur and l2cur:
+        new = ListNode()
+        val = l1cur.val + l2cur.val+ carry
+
+
+        carry = val//10
+
+        new.val = val%10
+
+
+        cur.next = new
+        cur = cur.next
+        l1cur = l1cur.next
+        l2cur = l2cur.next
+
+
+    if l1cur:
+        self.copy_linked_list(l1cur, cur, carry)
+
+    elif l2cur:
+        self.copy_linked_list(l2cur, cur, carry)
+
+    elif carry:
+        new = ListNode(val = 1)
+        cur.next= new
+
+    return ans
