@@ -1,0 +1,55 @@
+def no_stray_chars(self, string, n):
+    valid_nums = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}
+    valid_letters = {"A", "B", "C", "D", "E", "F", "a", "b", "c", "d", "e", "f"}
+
+
+    if n == 4:
+        for letter in string:
+            if letter not in valid_nums: return False
+        return True
+
+    if n == 8:
+        for character in string:
+            if character not in valid_nums and character not in valid_letters:
+                return False
+        return True
+
+
+
+def validIPv4(self, IP):
+    ip_vals = IP.split(".")
+
+    if len(ip_vals) != 4: return False
+
+    for val in ip_vals:
+        if not val: return False
+        if val[0] == "0" and len(val) > 1: return False
+        if not self.no_stray_chars(val, 4): return False
+        if 0 > int(val) or int(val) > 255:
+            return False
+
+    return True
+
+
+def validIPv6(self, IP):
+
+    ip_vals = IP.split(":")
+
+    if len(ip_vals) != 8: return False
+
+    for val in ip_vals:
+        if not val: return False
+        if len(val) == 0 or len(val) > 4: return False
+        if not self.no_stray_chars(val, 8): return False
+
+    return True
+
+
+
+def validIPAddress(self, IP: str) -> str:
+
+    if self.validIPv4(IP): return "IPv4"
+
+    if self.validIPv6(IP): return "IPv6"
+
+    return "Neither"
