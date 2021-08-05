@@ -1,0 +1,39 @@
+def compare_lines(self, l1, l2):
+
+    return abs(l1[0] - l2[0]) < 1e-9 and abs(l2[1] - l1[1]) < 1e-9
+
+def create_line(self, p1, p2):
+    if p1[0] == p2[0]:
+        return (p1[0],)
+
+    slope = (p2[1]-p1[1])/(p2[0] - p1[0])
+
+    y_int = p1[1] - slope*p1[0]
+
+    return (slope, y_int)
+
+
+
+
+def maxPoints(self, points: List[List[int]]) -> int:
+
+    if len(points) <= 1: return 1
+
+    point = [tuple(p) for p in points]
+    point_lines = dict()
+
+    for i in range(len(points)-1):
+        for j in range(i+1, len(points)):
+            new_line = self.create_line(points[i], points[j])
+            if new_line not in point_lines:
+                point_lines[new_line] = set()
+
+
+            point_lines[new_line].add(point[i])
+            point_lines[new_line].add(point[j])
+
+
+
+    longest = max(point_lines.values(), key = lambda x: len(x))
+
+    return len(longest)
