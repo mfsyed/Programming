@@ -1,0 +1,26 @@
+def getQueueInfo(self, queue):
+    values = []
+    next_level = []
+
+    for child in queue:
+        values.append(child.val)
+
+        if child.children:
+            for c in child.children:
+                next_level.append(c)
+
+    return values, next_level
+
+
+def levelOrder(self, root: 'Node') -> List[List[int]]:
+    if not root: return None
+
+    answer = [[root.val]]
+    queue = root.children
+
+    while queue:
+        values, queue = self.getQueueInfo(queue)
+
+        answer.append(values)
+
+    return answer
