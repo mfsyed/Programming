@@ -1,0 +1,26 @@
+def shipWithinDays(self, weights: List[int], days: int) -> int:
+
+    def capacitySatisfiesDays(cap):
+        d, weight = 1, 0
+
+        for w in weights:
+            weight += w
+            if weight > cap:
+                weight = w
+                d += 1
+                if d > days:
+                    return False
+        return True
+
+
+    left, right = max(weights), sum(weights)
+
+    while left < right:
+        mid = left + (right-left)//2
+
+        if capacitySatisfiesDays(mid):
+            right = mid
+        else:
+            left = mid +1
+
+    return left
