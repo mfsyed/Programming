@@ -1,0 +1,41 @@
+def maxDistToClosest(self, seats: List[int]) -> int:
+    left_spaces = []
+    right_spaces = []
+    distances = []
+    recent_left = None
+    recent_right = None
+
+    for i in range(len(seats)):
+        if seats[i] == 1:
+            recent_left = i
+            left_spaces.append(0)
+        elif seats[i] == 0:
+
+            if recent_left is None:
+                left_spaces.append(float("inf"))
+
+            else:
+                left_spaces.append(i - recent_left)
+
+
+    for i in reversed(range(len(seats))):
+        if seats[i] == 1:
+            recent_right = i
+            right_spaces.append(0)
+        elif seats[i] == 0:
+
+            if recent_right is None:
+                right_spaces.append(float("inf"))
+
+            else:
+                right_spaces.append(recent_right - i)
+
+    right_spaces = right_spaces[::-1]
+
+
+
+    for i in range(len(seats)):
+        distances.append(min(left_spaces[i], right_spaces[i]))
+
+
+    return max(distances)
