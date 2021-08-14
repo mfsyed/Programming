@@ -1,0 +1,38 @@
+def calculateClosedUnits(self, string):
+    counter = 0
+    closed_units = []
+
+    for i in range(len(string)):
+        if string[i] == "(":
+            counter += 1
+        if string[i] == ")":
+            counter -= 1
+
+        if counter == 0:
+            closed_units.append(i)
+
+    return closed_units
+
+
+
+def calculateOpenedUnits(self, closed_units):
+    open_units = [0]
+    if len(closed_units) == 1:
+        return open_units
+
+    for i in range(1, len(closed_units)):
+        open_units.append(closed_units[i-1] + 1)
+
+    return open_units
+
+
+def removeOuterParentheses(self, s: str) -> str:
+    answer = ""
+    closed = self.calculateClosedUnits(s)
+    opened = self.calculateOpenedUnits(closed)
+
+    for i in range(len(closed)):
+        if closed[i] - opened[i] > 1:
+            answer += s[opened[i]+1:closed[i]]
+
+    return answer
