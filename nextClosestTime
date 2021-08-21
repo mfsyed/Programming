@@ -1,0 +1,51 @@
+def getDigits(self, digits, string):
+    for l in string:
+        digits.add(l)
+
+def makeNumber(self, digits, number):
+    for n in number:
+        if n not in digits:
+            return False
+
+    return True
+
+
+def findNextNumber(self, digits, start, end):
+    for i in range(start, end):
+        string = ""
+        if i < 10:
+            string = "0"+ str(i)
+        else:
+            string = str(i)
+        if self.makeNumber(digits, string):
+            return string
+
+    return None
+
+
+def nextClosestTime(self, time: str) -> str:
+    hour, minutes = time.split(":")
+    digits =set()
+    self.getDigits(digits, hour)
+    self.getDigits(digits, minutes)
+    minutes_int = (int(minutes)+1)%60
+    carry = (int(minutes)+1)//60
+    hour_int = (int(hour)+carry)%24
+    print(hour_int)
+
+    found_minute = self.findNextNumber(digits, minutes_int, 60)
+    found_hour = None
+
+    if found_minute is None:
+        found_minute = self.findNextNumber(digits, 0, minutes_int)
+        hour_int = (hour_int+1)%24
+        found_hour = self.findNextNumber(digits, hour_int, 24)
+        if not found_hour:
+            found_hour = self.findNextNumber(digits, 0, hour_int)
+        return found_hour + ":" + found_minute
+
+    found_hour = self.findNextNumber(digits, hour_int, 24)
+    if not found_hour:
+        found_hour = self.findNextNumber(digits, 0, hour_int)
+
+    return found_hour + ":" + found_minute
