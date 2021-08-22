@@ -1,0 +1,25 @@
+def kEmptySlots(self, bulbs: List[int], k: int) -> int:
+    if len(bulbs) == 1: return -1
+
+    days = [0 for _ in range(len(bulbs))]
+
+    for i in range(len(bulbs)):
+        days[bulbs[i]-1] = i+1
+
+    s, e = 0, k+1
+    time = float("inf")
+
+    while e<len(bulbs):
+        empty_cond = True
+        for i in range(s+1, e):
+            if max(days[i], days[s], days[e]) != days[i]:
+                empty_cond = False
+                break
+        if empty_cond:
+            time = min(time, max(days[s], days[e]))
+        s += 1
+        e +=1
+
+    if time != float("inf"): return time
+
+    return -1
