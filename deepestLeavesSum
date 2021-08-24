@@ -1,0 +1,36 @@
+class Solution:
+    
+    def getLevel(self, current):
+        
+        new_level = []
+        
+        for node in current:
+            if node.left:
+                new_level.append(node.left)
+            if node.right:
+                new_level.append(node.right)
+                
+        
+        return new_level
+        
+        
+    def deepestLeavesSum(self, root: Optional[TreeNode]) -> int:
+        
+        if not root: return 0
+        
+        #if not root.left and not root right: return root.val
+        
+        cur = [root]
+        new_level = self.getLevel(cur)
+        
+        while new_level:
+            cur = new_level
+            new_level = self.getLevel(cur)
+            
+        
+        total = 0
+        for node in cur:
+            total += node.val
+            
+            
+        return total
