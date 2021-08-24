@@ -1,0 +1,14 @@
+def anagramMappings(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    mapping = []
+    index_dict = dict()
+
+    for i in range(len(nums2)):
+        if nums2[i] not in index_dict:
+            index_dict[nums2[i]] = i
+
+
+    for i in range(len(nums1)):
+        mapping.append(index_dict[nums1[i]])
+
+
+    return mapping
