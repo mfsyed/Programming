@@ -1,0 +1,38 @@
+class Solution:
+    
+    
+    
+    
+    def maxSubarraySumCircular(self, nums: List[int]) -> int:
+        length = len(nums)
+        
+        sub = []
+        global_max = float("-inf")
+        local_max = 0
+        local_min = 0
+        global_min = float("inf")
+        
+        all_pos = True
+        all_neg = True
+        
+        
+        for i in range(length):
+            if nums[i] < 0:
+                all_pos = False
+            if nums[i] > 0:
+                all_neg = False
+            local_max = max(nums[i], local_max + nums[i])
+            global_max = max(local_max, global_max)
+            
+            local_min = min(nums[i], nums[i] + local_min)
+            
+            global_min = min(local_min, global_min)
+            
+        
+        if all_pos:
+            return sum(nums)
+        
+        if all_neg:
+            return max(nums)
+        
+        return max(sum(nums)-global_min, global_max)
