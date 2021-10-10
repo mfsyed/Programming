@@ -1,0 +1,47 @@
+class Solution:
+    def findRange(nums, n):
+        start, end = 0, len(nums)-1
+        high, low = None, None
+        
+        while start <= end:
+            if nums[start] == n and low is None:
+                low = start
+            
+            if nums[end] == n and high is None:
+                high = end
+                
+            if low is not None and High is not None:
+                return (low, high)
+            
+            start += 1
+            end -= 1
+            
+            
+            
+    def findShortestSubArray(self, nums: List[int]) -> int:
+        
+        if len(nums) <= 1: return len(nums)
+        
+        fd = dict()
+        
+        for i in range(len(nums)):
+            
+            if nums[i] not in fd:
+                fd[nums[i]] = [0, [i, i]]
+
+            fd[nums[i]][1][-1] = i
+                
+            fd[nums[i]][0] += 1
+            
+            
+        most_frequent = max(fd.values(), key = lambda x: x[0])[0]
+
+        smallest_range = float("inf")
+        
+        for key, value in fd.items():
+            print(value)
+            if value[0] == most_frequent:
+                print(value)
+                smallest_range = min(smallest_range, value[1][1] - value[1][0] +1 )
+                
+        return smallest_range
